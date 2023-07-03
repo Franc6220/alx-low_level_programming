@@ -1,15 +1,16 @@
 #include "main.h"
-
+#include <stdio.h>
 /**
- * main - check the code
- *
+ * _puts - check the code for Holberton School students.
+ * @str: pointer int type
  * Return: Always 0.
  */
-int main(void)
+void _puts(char *str)
 {
-	char *str;
-
-	str = "I do not fear computers. I fear the lack of them - Isaac Asimov";
-	_puts(str);
-	return (0);
+	while (*str != '\0')
+	{
+		_putchar(*str);
+		str++;
+	}
+	_putchar('\n');
 }
