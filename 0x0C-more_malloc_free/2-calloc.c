@@ -22,7 +22,7 @@ char *_memset(char *s, char b, unsigned int n)
 }
 /**
  * *_calloc - allocates memory for an array
- * @nmembi: number of elements in the array
+ * @nmemb: number of elements in the array
  * @size: size of each element
  *
  * Return: pointer to allocated memory
