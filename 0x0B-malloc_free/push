@@ -1,0 +1,27 @@
+#!/bin/bash
+
+
+# Prompt for branch name
+read -p "Enter the branch name: " branch_name
+
+# Check if the branch name is provided; if not, use the current branch
+if [[ -z "$branch_name" ]]; then
+    branch_name=$(git symbolic-ref --short HEAD)
+fi
+
+# Add all changes
+git add .
+
+# Prompt for commit message
+read -p "Enter the commit message: " commit_message
+
+# Check if the commit message is provided; if not, use a default message
+if [[ -z "$commit_message" ]]; then
+    commit_message="Automated commit"
+fi
+
+# Commit changes with the provided message
+git commit -m "$commit_message"
+
+# Push changes to the specified branch
+git push origin "$branch_name"

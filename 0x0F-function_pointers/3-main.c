@@ -1,44 +1,41 @@
-#include <stddef.h>
-#include "function_pointers.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include "3-calc.h"
 
 /**
- * main - Prints the result of simple operations
- * @argc: The number of arguments supplied to the program
- * @argv: An array of pointers to the arguments
- *
- * Return: Always 0
+ * main - Show the result from an operation of two integers
+ * @argc: How many arguments I have
+ * @argv: My string of strings
+ * Return: Nothing.
  */
 
-int main(int __attribute__((__unused__)) argc, char *argv[])
+int main(int argc, char **argv)
 {
-	int num1, num2;
-	char *op;
-
-	if (argc != 4)
+	if (argc == 4)
 	{
-		printf("Error\n");
-		exit(98);
+		int resa, resb, resfinal;
+
+		if (*argv[1] >= '0' && *argv[1] <= '9')
+			resa = atoi(argv[1]);
+		else
+		{
+			printf("Error\n");
+			exit(98);
+		}
+		if (*argv[3] >= '0' && *argv[3] <= '9')
+			resb = atoi(argv[3]);
+		else
+		{
+			printf("Error\n");
+			exit(98);
+		}
+		/* Dirigir los resultados y el operados a hacer macth para redirigir*/
+		/*su respectiva funcion.*/
+		resfinal = (*get_op_func(argv[2]))(resa, resb);
+		printf("%d\n", resfinal);
+		return (0);
 	}
-
-	num1 = atoi(argv[1]);
-	op = argv[2];
-	num2 = atoi(argv[3]);
-
-	if (get_op_func(op) == NULL || op[1] != '\0')
-	{
-		printf("Error\n");
-		exit(99);
-	}
-
-	if ((*op == '/' && num2 == 0) || (*op == '%' && num2 == 0))
-	{
-		printf("Error\n");
-		exit(100);
-	}
-	printf("%d\n", get_op_func(op)(num1, num2));
-
+	printf("Error\n");
+	exit(98);
 	return (0);
 }

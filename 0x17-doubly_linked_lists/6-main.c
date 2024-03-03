@@ -28,4 +28,3 @@ int main(void)
     head = NULL;
     return (EXIT_SUCCESS);
 }
-
