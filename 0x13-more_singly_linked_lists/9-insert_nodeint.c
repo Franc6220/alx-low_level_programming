@@ -1,64 +1,66 @@
 #include "lists.h"
 
+
+static listint_t *new_node(const int n);
 /**
- * insert_nodeint_at_index - returns the nth node of a linked list
- * @head: pointer to the head of the list
- * @idx: index of the node to be added
- * @n: content of the new node
+ * insert_nodeint_at_index - function that inserts a new node at a given
+ * position.
  *
- * Return: the address of the node
+ * @head: pointer of pointer to a listint_t
+ * @idx: index of the list where the new node should be added
+ * @n: value to set the new node to.
+ *
+ * Return: pointer to the head.
  */
 listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 {
-	listint_t *new_node = NULL;
-	listint_t *previous_node = NULL;
-	unsigned int i = 0;
+	unsigned int i;
+	listint_t *temp, *new;
 
-	new_node = malloc(sizeof(listint_t));
-	if (new_node == NULL || idx > listint_len(*head))
+	if (!(*head) && idx == 0)
 	{
-		free(new_node);
-		return (NULL);
+		*head = new_node(n);
+		return (*head);
 	}
-	new_node->n = n;
-	new_node->next = NULL;
-	while (head != NULL)
+
+	i = 0;
+	temp = *head;
+	while (temp)
 	{
-		if (i == idx)
+		if (idx == 0)
 		{
-			if (i == 0)
-			{
-				new_node->next = *head;
-				*head = new_node;
-				return (new_node);
-			}
-			new_node->next = previous_node->next;
-			previous_node->next = new_node;
-			return (new_node);
+			*head = new_node(n);
+			(*head)->next = temp;
+			return (*head);
 		}
-		else if ((i + 1) == idx)
-			previous_node = *head;
-		head = &((*head)->next);
+		else if (i == idx - 1)
+		{
+			new = new_node(n);
+			new->next = temp->next;
+			temp->next = new;
+			return (new);
+		}
+		temp = temp->next;
 		i++;
 	}
 	return (NULL);
 }
 
-/**
- * listint_len - counts the number of nodes in a linked list
- * @h: head of the list
- *
- * Return: the number of elements
- */
-size_t listint_len(const listint_t *h)
-{
-	const listint_t *cursor = h;
-	size_t count = 0;
 
-	while (cursor != NULL)
-	{
-		count += 1;
-		cursor = cursor->next;
-	}
-	return (count);
+/**
+ * new_node - creates a new listint_t node.
+ * @n: number to place inside the node.
+ *
+ * Return: pointer to the new node.
+ */
+static listint_t *new_node(const int n)
+{
+	listint_t *new;
+
+	new = malloc(sizeof(listint_t));
+	if (!new)
+		return (NULL);
+	new->n = n;
+	new->next = NULL;
+	return (new);
 }
