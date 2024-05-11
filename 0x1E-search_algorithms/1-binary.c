@@ -2,7 +2,7 @@
 
 int binary_search(int *array, size_t size, int value)
 {
-	if (arrat == NULL)
+	if (array == NULL)
 		{
 			return -1; // Returns -1 when array is NULL
 		}
